@@ -1,11 +1,12 @@
-#Linux Resource Usage Monitor
-With Web-based GUI and charts
+Linux Resource Usage Monitor with Web-based GUI and charts
 
 ---
 
 It groups processes by command (without parameters).
 
 Also, it assumes that any `java` process is JetBrains IDEA (that was my case).
+
+![Demo](demo.png "Demo")
 
 ## Getting started
 Run local php server: 
