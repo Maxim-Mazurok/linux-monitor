@@ -9,6 +9,7 @@ exec("ps -o pid=,user=,rss=,command= ax", $str);
 //$re = '/^\s*(\d+)\s+(.+?)\s+(\d+) kB\s*$/m';
 //exec('find /proc -maxdepth 2 -path "/proc/[0-9]*/status" -readable -exec awk -v FS=":" \'{process[$1]=$2;sub(/^[ \t]+/,"",process[$1]);} END {if(process["VmSwap"] && process["VmSwap"] != "0 kB") printf "%10s %-30s %20s\n",process["Pid"],process["Name"],process["VmSwap"]}\' \'{}\' \;', $str);
 
+/** @noinspection PhpParamsInspection */
 $str = join("\n", $str);
 
 function getCommand($cmd)
@@ -110,12 +111,10 @@ foreach ($matches as $match) {
 <script>
   function hexToRgb(hex) {
     // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-      return r + r + g + g + b + b;
-    });
+    const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, (m, r, g, b) => r + r + g + g + b + b);
 
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
       r: parseInt(result[1], 16),
       g: parseInt(result[2], 16),
@@ -123,8 +122,8 @@ foreach ($matches as $match) {
     } : null;
   }
 
-  var ctx = document.getElementById('myChart');
-  var myChart = new Chart(ctx, {
+  const ctx = document.getElementById('myChart');
+  const myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
       labels: [

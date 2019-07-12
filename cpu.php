@@ -13,17 +13,17 @@
 <body style="margin: 0; padding: 0; height: 100vh;">
 <canvas id="myChart"></canvas>
 <script>
-  var ctx = document.getElementById('myChart');
+  const ctx = document.getElementById('myChart');
 
-  function addData(chart, label, data) {
+  const addData = (chart, label, data) => {
     chart.data.labels.push(label);
     chart.data.datasets.forEach((dataset) => {
       dataset.data.push(data);
     });
     chart.update();
-  }
+  };
 
-  var myChart = new Chart(ctx, {
+  const myChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: [
@@ -66,7 +66,8 @@
             borderWidth: 1,
             label: {
               enabled: true,
-              content: 'base clock speed'
+              content: 'base clock speed',
+              yAdjust: 12,
             }
           }, {
             type: 'line',
@@ -77,7 +78,8 @@
             borderWidth: 1,
             label: {
               enabled: true,
-              content: 'base clock speed'
+              content: 'Turbo Boost (2 cores active)',
+              yAdjust: 12,
             }
           }, {
             type: 'line',
@@ -86,6 +88,11 @@
             value: 3,
             borderColor: 'red',
             borderWidth: 1,
+            label: {
+              enabled: true,
+              content: 'Turbo Boost (1 core active)',
+              yAdjust: 12,
+            }
           },
         ]
       },
@@ -95,14 +102,14 @@
   setInterval(() => {
     $.ajax({
       url: "/getCurrentCPUCurrentFrequency.php",
-      success: function (result) {
+      success: (result) => {
         addData(myChart, (new Date()).toLocaleString(), result);
       },
-      error: function (error) {
+      error: (error) => {
         alert(JSON.stringify({ error }));
       }
     });
-  }, 500);
+  }, 1000);
 </script>
 </body>
 </html>
